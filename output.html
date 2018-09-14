@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数组</title>
+</head>
+<body>
+<script type="text/javascript">
+const Stacks = [{
+  id: 1,
+  name: 'JavaScript',
+  level: 1,
+  active: true
+},{
+  id: 2,
+  name: 'CSS',
+  level: 3,
+  active: false
+},{
+  id: 3,
+  name: 'HTML',
+  level: 2,
+  active: true
+},{
+  id: 1,
+  name: 'JavaScript',
+  level: 4,
+  active: true
+},{
+  id: 4,
+  name: 'JQuery',
+  level: 1,
+  active: false
+}]
+
+function output(Arr){
+	var compare = function (obj1, obj2) {
+	    var val1 = obj1.level;
+	    var val2 = obj2.level;
+	    if (val1 > val2) {
+	        return -1;
+	    } else if (val1 < val2) {
+	        return 1;
+	    } else {
+	        return 0;
+	    }            
+	} 
+	// Arr.sort(compare);
+	let omit = []
+	Arr.forEach((item,index,arr) =>{
+		Arr.forEach((im, ix, ar) =>{
+			if (item != null && im != null) {
+				if (item.id == im.id) {
+					if (item.level > im.level) {
+						omit.push(ix);
+					}
+				}
+			}
+		})
+	})
+	Arr.sort(compare);
+	omit.map((item) => {
+			Stacks.splice(item, 1);
+		})
+	let acitiveTrue = [];
+	let acitiveFalse = [];
+	Arr.forEach((item,index,arr) =>{
+		if (item.active == true) {
+			acitiveTrue.push(item)
+		}else{
+			acitiveFalse.push(item)
+		}
+	})
+
+	console.log(acitiveTrue);
+	console.log(acitiveFalse);
+	// Stacks.splice((omit.map(item) => item), 1);
+	// console.log(omit);
+	console.log(Arr)
+	let result = acitiveTrue.concat(acitiveFalse);
+	console.log(result);
+  // 需要实现的代码
+  // 1. 如果 id 重复，去除 level 值小的一项
+  // 2. 属性 acitive 为 true 的项目排行靠前
+  // 3. 属性 acitive 相同时，level 高的靠前
+  // 4. 返回项目格式为 名称-等级 的字符串
+  // return ...
+}
+
+output(Stacks);
+
+// 结果返回
+// ['JavaScript-4','HTML-2','CSS-3','JQuery-1'];
+</script>
+</body>
+</html>
